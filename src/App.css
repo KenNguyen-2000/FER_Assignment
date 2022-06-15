@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -53,6 +49,29 @@
   margin: 0px auto;
   padding: 20px 0px 20px 0px;
 }
+
+.container-fluid .jumbotron,
+.container .jumbotron {
+  border-radius: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .container-fluid .jumbotron,
+  .container .jumbotron {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .jumbotron {
+    padding-bottom: 48px;
+    padding-top: 48px;
+  }
+}
+
 .jumbotron {
   padding: 70px 30px 70px 30px;
   margin: 0px auto;
