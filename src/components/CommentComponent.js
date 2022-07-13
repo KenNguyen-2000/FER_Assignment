@@ -12,11 +12,11 @@ import {
 
 const CommentComponent = ({
   comments,
-  addComment,
+  postComment,
   dishId,
   resetFeedbackForm,
 }) => {
-  function CommentForm({ dishId, addComment }) {
+  function CommentForm({ dishId, postComment }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const [author, setAuthor] = useState("");
@@ -29,11 +29,7 @@ const CommentComponent = ({
     };
 
     const handleSubmit = (values) => {
-      //   addComment(dishId, values.rating, values.author, values.comment);
-      console.log("Current State is: " + JSON.stringify(values));
-      alert("Current State is: " + JSON.stringify(values));
-
-      resetFeedbackForm();
+      postComment(dishId, values.rating, values.author, values.comment);
       toggleModal();
     };
 
@@ -165,7 +161,7 @@ const CommentComponent = ({
           );
         })}
       </ul>
-      <CommentForm dishId={dishId} addComment={addComment} />
+      <CommentForm dishId={dishId} postComment={postComment} />
     </div>
   );
 };

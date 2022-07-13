@@ -64,7 +64,7 @@ const DishDetail = (props) => {
           <div className="col-12 col-md-5 m-1">
             <CommentComponent
               comments={props.comments}
-              addComment={props.addComment}
+              postComment={props.postComment}
               dishId={props.dish.id}
               resetFeedbackForm={props.resetFeedbackForm}
             />
