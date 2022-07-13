@@ -8,18 +8,23 @@ import {
   Media,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../shared/baseUrl";
+import { Loading } from "./LoadingComponent";
+
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function About(props) {
   //   const leaders = props.leaders.map((leader) => {
   //     return <p key={leader.id}>Leader {leader.name}</p>;
   //   });
+  console.log(props);
 
-  const RenderLeader = ({ leader }) => {
+  const RenderLeader = ({ leader, isLoading, errMess }) => {
     return (
-      <div key={leader.id} className="col-12 mt-5">
-        <Media tag="li">
+      <Fade in>
+        <Media key={leader.id} tag="li">
           <Media left middle>
-            <Media object src={leader.image} alt={leader.name} />
+            <Media object src={baseUrl + leader.image} alt={leader.name} />
           </Media>
           <Media body right className="ml-5">
             <Media heading>{leader.name}</Media>
@@ -27,7 +32,7 @@ function About(props) {
             <p>{leader.description}</p>
           </Media>
         </Media>
-      </div>
+      </Fade>
     );
   };
 
@@ -107,11 +112,24 @@ function About(props) {
           <h2>Corporate Leadership</h2>
         </div>
         <div className="col-12">
-          <Media list>
-            {props.leaders.map((leader) => (
-              <RenderLeader leader={leader} />
-            ))}
-          </Media>
+          {props.isLoading ? (
+            <Loading />
+          ) : props.errMess ? (
+            <h4>{props.errMess}</h4>
+          ) : (
+            <Media list>
+              <Stagger in>
+                {props.leaders.leaders.map((leader) => (
+                  <RenderLeader
+                    leader={leader}
+                    isLoading={props.leaders.leaders.isLoading}
+                    errMess={props.leaders.leaders.errMess}
+                    key={leader.id}
+                  />
+                ))}
+              </Stagger>
+            </Media>
+          )}
         </div>
       </div>
     </div>

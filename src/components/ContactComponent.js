@@ -10,6 +10,7 @@ import {
 import { Control, LocalForm, Errors } from "react-redux-form";
 
 import { Link } from "react-router-dom";
+import { postFeedback } from "../redux/ActionCreators";
 
 class Contact extends Component {
   constructor(props) {
@@ -48,6 +49,15 @@ class Contact extends Component {
   handleSubmit(values) {
     console.log("Current State is: " + JSON.stringify(values));
     alert("Current State is: " + JSON.stringify(values));
+    this.props.postFeedback(
+      values.firstname,
+      values.lastname,
+      values.telnum,
+      values.agree,
+      values.contactType,
+      values.email,
+      values.message
+    );
     this.props.resetFeedbackForm();
     // event.preventDefault();
   }
