@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 import DishDetail from "./DishdetailComponent";
 
-function RenderMenuItem({ dish, onClick }) {
+function RenderMenuItem({ dish }) {
   return (
     <Card>
       <Link to={`/menu/${dish.id}`}>
@@ -25,20 +25,6 @@ function RenderMenuItem({ dish, onClick }) {
 }
 
 const Menu = (props) => {
-  // renderDish(dish) {
-  //   if (dish != null)
-  //     return (
-  //       <Card key={dish.id} onClick={() => this.props.onClick(dish.id)}>
-  //         <CardImg top src={dish.image} alt={dish.name} />
-  //         <CardBody>
-  //           <CardTitle>{dish.name}</CardTitle>
-  //           <CardText>{dish.description}</CardText>
-  //         </CardBody>
-  //       </Card>
-  //     );
-  //   else return <div></div>;
-  // }
-
   const menu = props.dishes.map((dish) => {
     return (
       <div className="col-12 col-md-5 m-1" key={dish.id}>
@@ -61,9 +47,6 @@ const Menu = (props) => {
         </div>
       </div>
       <div className="row">{menu}</div>
-      {/* <div className="row">
-        <DishDetail dish={props.selectedDish} />
-      </div> */}
     </div>
   );
 };
