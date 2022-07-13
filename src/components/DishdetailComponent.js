@@ -30,7 +30,7 @@ function RenderDish({ dish }) {
   );
 }
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
   return (
     <div>
       <h4>Comments</h4>
@@ -48,14 +48,15 @@ function RenderComments({ comments }) {
           );
         })}
       </ul>
+      <CommentForm dishId={dishId} addComment={addComment} />
     </div>
   );
 }
 
-function CommentForm() {
+function CommentForm({ dishId, addComment }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rating, setRating] = useState(0);
-  const [yourname, setYourname] = useState("");
+  const [author, setAuthor] = useState("");
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
   const [valid, setValid] = useState(false);
@@ -65,6 +66,7 @@ function CommentForm() {
   };
 
   const handleSubmit = (values) => {
+    addComment(dishId, values.rating, values.author, values.comment);
     toggleModal();
   };
 
@@ -96,7 +98,7 @@ function CommentForm() {
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>Login</ModalHeader>
         <ModalBody>
-          <LocalForm onSubmit={() => handleSubmit()}>
+          <LocalForm onSubmit={() => handleSubmit({ author, rating, comment })}>
             <Row className="form-group">
               <Label htmlFor="rating" md={12}>
                 Rating
@@ -119,17 +121,17 @@ function CommentForm() {
               </Col>
             </Row>
             <Row className="form-group">
-              <Label htmlFor="yourname" md={12}>
+              <Label htmlFor="author" md={12}>
                 Your Name
               </Label>
               <Col md={12}>
                 <Control.text
-                  model=".yourname"
-                  id="yourname"
-                  name="yourname"
+                  model=".author"
+                  id="author"
+                  name="author"
                   placeholder="Your Name"
                   className="form-control"
-                  onChange={(e) => setYourname(e.target.value)}
+                  onChange={(e) => setAuthor(e.target.value)}
                   validators={{
                     validate,
                   }}
@@ -138,7 +140,7 @@ function CommentForm() {
               <Col md={12}>
                 <Errors
                   style={{ color: "red" }}
-                  model=".yourname"
+                  model=".author"
                   show="touched"
                   messages={{
                     validate: message,
@@ -197,8 +199,11 @@ const DishDetail = (props) => {
             <RenderDish dish={props.dish} />
           </div>
           <div className="col-12 col-md-5 m-1">
-            <RenderComments comments={props.comments} />
-            <CommentForm />
+            <RenderComments
+              comments={props.comments}
+              addComment={props.addComment}
+              dishId={props.dish.id}
+            />
           </div>
         </div>
       </div>
