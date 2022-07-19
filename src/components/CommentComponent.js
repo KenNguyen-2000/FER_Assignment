@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Control, Errors, LocalForm } from "react-redux-form";
+import { Control, Errors, LocalForm, Form } from "react-redux-form";
 import {
   Button,
   Col,
@@ -30,6 +30,8 @@ const CommentComponent = ({
     };
 
     const handleSubmit = (values) => {
+      alert(JSON.stringify(values));
+      console.log(JSON.stringify(values));
       postComment(dishId, values.rating, values.author, values.comment);
       toggleModal();
     };
@@ -62,7 +64,7 @@ const CommentComponent = ({
         <Modal isOpen={isModalOpen} toggle={toggleModal}>
           <ModalHeader toggle={toggleModal}>Login</ModalHeader>
           <ModalBody>
-            <LocalForm
+            <Form
               model="feedback"
               onSubmit={() => handleSubmit({ author, rating, comment })}
             >
@@ -138,7 +140,7 @@ const CommentComponent = ({
                   </Button>
                 </Col>
               </Row>
-            </LocalForm>
+            </Form>
           </ModalBody>
         </Modal>
       </div>
